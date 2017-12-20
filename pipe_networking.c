@@ -42,7 +42,7 @@ int server_connect(int from_client) {
   printf("server read: %s\n", buffer);
   
   int down = open(buffer, O_WRONLY);
-  write(to_client, ACK, sizeof(buffer));
+  write(down, ACK, sizeof(buffer));
   
   read(from_client, buffer, sizeof(buffer));
   printf("received msg: %s\n", buffer);
