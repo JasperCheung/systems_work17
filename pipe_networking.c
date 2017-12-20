@@ -49,9 +49,10 @@ int server_connect(int from_client) {
   write(down, buffer, sizeof(buffer));
 
   //read final msg
-  if(read(down, buffer, sizeof(buffer))){
-    printf("connection established\n");
-  }  
+  if(read(from_client, buffer, sizeof(buffer))){
+
+  printf("connection established\n");
+  }
   return down;
   
 }
