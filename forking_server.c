@@ -39,7 +39,7 @@ int main() {
 
 void subserver(int from_client) {
   int to_client = server_connect(from_client);
-  char* buffer[BUFFER_SIZE];
+  char buffer[BUFFER_SIZE];
 
   
   while(read(from_client, buffer, sizeof(buffer))){
