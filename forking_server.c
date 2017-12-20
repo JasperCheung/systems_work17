@@ -29,9 +29,7 @@ int main() {
        subserver(from_client);
      }
      else{ //parent (server) //removes connection to WKP, cretes WKP and waits for new connections
-       printf("[server] ");
-       remove("luigi");
-       printf("WKP 'luigi' is removed\n");
+       
        close(from_client);
      }
     

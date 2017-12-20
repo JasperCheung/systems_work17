@@ -20,8 +20,8 @@ int server_setup() {
   
   if(read(up, buffer, sizeof(buffer))){
     printf("[server]: received:%s \n", buffer);
-    //remove("luigi");
-    // printf("[server]: removed wkp\n");
+    remove("luigi");
+    printf("[server]: removed wkp\n");
   }
   return up; 
   
