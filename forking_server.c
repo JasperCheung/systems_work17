@@ -12,30 +12,28 @@ static void sighandler(int signo) {
 }
 
 int main() {
-  int to_client;
+  signal(SIGINT, sighandler);
   int from_client;
-  char buffer[BUFFER_SIZE];
-
+  int f;
   // from_client = server_handshake(&to_client);
   
-   while(1){
-     from_client = server_setup();
-     printf("forking off... \n");
-     
-     int f  = fork();
-
-     if(f == 0){
-       printf("subserver\n");
-       subserver(from_client);
-     }
-     else{ //parent (server) //removes connection to WKP, cretes WKP and waits for new connections
-       
-       close(from_client);
-     }
-    
-   
+  while(1){
+    from_client = server_setup();
+    printf("forking off... \n");
+    int f  = fork();
+    //if child
+    if(!f){
+      printf("subserver\n");
+      subserver(from_client);
+    }  else{
+      close(from_client);
+      
+      
+    }
   }
 }
+  
+
 
 //Subserver connects to client FIFO, sending an intual acknowledgement message
 
@@ -50,6 +48,7 @@ void subserver(int from_client) {
     process(buffer);
     write(to_client, buffer,sizeof(buffer));
   }
+  exit(0);
 }
 
 void process(char * s) {
