@@ -20,7 +20,7 @@ int server_setup() {
   
   
   printf("[server] handshook");
-  // remove("luigi");
+  remove("luigi");
   printf("[server]: removed wkp\n");
   
   return up; 
@@ -37,24 +37,17 @@ int server_setup() {
   returns the file descriptor for the downstream pipe.
   =========================*/
 int server_connect(int from_client) {
-  char buffer[HANDSHAKE_BUFFER_SIZE];
-  int down;
-  //reading from wkp to get to client name
-  printf("reading from well known pipe...\n");
+  char buffer[BUFFER_SIZE];
   read(from_client, buffer, sizeof(buffer));
   printf("server read: %s\n", buffer);
-
-  //write to client 
-  down = open(buffer, O_WRONLY, 0);
-  write(down, buffer, sizeof(buffer));
-
-  //read final msg
-  if(read(from_client, buffer, sizeof(buffer))){
-
-  printf("connection established\n");
-  }
-  return down;
   
+  int down = open(buffer, O_WRONLY);
+  write(to_client, ACK, sizeof(buffer));
+  
+  read(from_client, buffer, sizeof(buffer));
+  printf("received msg: %s\n", buffer);
+  printf("done\n");
+  return down;
 }
 
 /*=========================
