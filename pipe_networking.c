@@ -14,11 +14,15 @@
 int server_setup() {
   char buffer[HANDSHAKE_BUFFER_SIZE];
   int up;
+  printf("[server]: making wkp\n");
   mkfifo("luigi",0777);
   up = open( "luigi", O_RDONLY, 0);
-  read(up, buffer, sizeof(buffer));
-  remove("luigi");
-
+  
+  if(read(up, buffer, sizeof(buffer))){
+    printf("[server]: received:%s \n", buffer);
+    //remove("luigi");
+    // printf("[server]: removed wkp\n");
+  }
   return up; 
   
  }
@@ -36,9 +40,10 @@ int server_connect(int from_client) {
   char buffer[HANDSHAKE_BUFFER_SIZE];
   read(from_client, buffer, sizeof(buffer));
   int down = open(buffer, O_WRONLY, 0);
-  write(down, ACK, sizeof(buffer));
+  write(down, buffer, sizeof(buffer));
   
- 
+  read(from_client, buffer, sizeof(buffer));
+  printf("[subserver] handshake received:%s\n", buffer);
   
 
   return down;
