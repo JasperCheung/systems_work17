@@ -27,7 +27,7 @@ int main() {
       subserver(from_client);
     }  else{
       close(from_client);
-      
+
       
     }
   }
@@ -39,7 +39,7 @@ int main() {
 
 void subserver(int from_client) {
   int to_client = server_connect(from_client);
-  char buffer[BUFFER_SIZE];
+  char buffer[BUFFER_SIZE] = calloc(BUFFER_SIZE, sizeof(char))
 
   
   while(read(from_client, buffer, sizeof(buffer))){
