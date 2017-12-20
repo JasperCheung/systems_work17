@@ -14,7 +14,7 @@ static void sighandler(int signo) {
 int main() {
   signal(SIGINT, sighandler);
   int from_client;
-  int f;
+  int t
   // from_client = server_handshake(&to_client);
   
   while(1){
@@ -39,7 +39,7 @@ int main() {
 
 void subserver(int from_client) {
   int to_client = server_connect(from_client);
-  char* buffer = calloc(BUFFER_SIZE, sizeof(char));
+  char* buffer[BUFFER_SIZE];
 
   
   while(read(from_client, buffer, sizeof(buffer))){
