@@ -14,7 +14,7 @@ static void sighandler(int signo) {
 int main() {
   signal(SIGINT, sighandler);
   int from_client;
-  int t
+
   // from_client = server_handshake(&to_client);
   
   while(1){
